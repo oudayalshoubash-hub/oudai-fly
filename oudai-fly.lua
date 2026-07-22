@@ -34,15 +34,12 @@ a(tg,Color3.fromRGB(147,51,234),Color3.fromRGB(168,85,247))a(mb,Color3.fromRGB(9
 local bv,bg
 local function sf()f=true g()h.PlatformStand=true bv=Instance.new("BodyVelocity")bv.MaxForce=Vector3.new(600000,900000,600000)bv.Velocity=Vector3.new(0,0,0)bv.Parent=rp bg=Instance.new("BodyGyro")bg.MaxTorque=Vector3.new(600000,600000,600000)bg.CFrame=rp.CFrame bg.Parent=rp tg.Text="DISABLE FLY"tg.BackgroundColor3=Color3.fromRGB(220,38,38)sd.BackgroundColor3=Color3.fromRGB(255,100,100)end
 local function st()f=false if bv then bv:Destroy()end if bg then bg:Destroy()end if h then h.PlatformStand=false end tg.Text="ENABLE FLY"tg.BackgroundColor3=Color3.fromRGB(147,51,234)sd.BackgroundColor3=Color3.fromRGB(0,255,120)end
-R.Heartbeat:Connect(function()if not f or not rp or not bv then return end local m=h.MoveDirection local v=m.Z*-30 if U:IsKeyDown(Enum.KeyCode.Space)then v=v+60 end if U:IsKeyDown(Enum.KeyCode.LeftControl)then v=v-60 end bv.Velocity=((rp.CFrame*CFrame.new(m.X,0,m.Z)).Position-rp.CFrame.Position).Unit*(math.abs(m.X)+math.abs(m.Z))*s+Vector3.new(0,v*0.6,0)bg.CFrame=rp.CFrame end)
+R.Heartbeat:Connect(function()if not f or not rp or not bv then return end local m=h.MoveDirection local v=m.Z*-30 if U:IsKeyDown(Enum.KeyCode.Space)then v=v+60 end if U:IsKeyDown(Enum.KeyCode.LeftControl)then v=v-60 end bv.Velocity=(rp.CFrame.LookVector*Vector3.new(1,0,1)+Vector3.new(0,1,0)*m.Y).Unit*(math.abs(m.X)+math.abs(m.Z))*s+Vector3.new(0,v*0.6,0)bg.CFrame=rp.CFrame end)
 tg.Activated:Connect(function()if f then st()else sf()end end)
 mb.Activated:Connect(function()s=math.max(30,s-10)sv.Text=tostring(s)end)
 pb.Activated:Connect(function()s=math.min(500,s+10)sv.Text=tostring(s)end)
 U.InputBegan:Connect(function(i,g)if g then return end if i.KeyCode==Enum.KeyCode.F then if f then st()else sf()end end end)
-
 local function notify(msg,dur)local n=Instance.new("ScreenGui")n.Name="Notification"n.ResetOnSpawn=false n.Parent=p:WaitForChild("PlayerGui")local nb=Instance.new("Frame")nb.Size=UDim2.new(0,300,0,60)nb.Position=UDim2.new(0.5,-150,0,20)nb.BackgroundColor3=Color3.fromRGB(25,20,45)nb.BackgroundTransparency=0.1 nb.BorderSizePixel=0 nb.Parent=n local nbc=Instance.new("UICorner")nbc.CornerRadius=UDim.new(0,15)nbc.Parent=nb local nst=Instance.new("UIStroke")nst.Color=Color3.fromRGB(147,51,234)nst.Thickness=2 nst.Transparency=0.6 nst.Parent=nb local ngr=Instance.new("UIGradient")ngr.Color=ColorSequence.new({ColorSequenceKeypoint.new(0,Color3.fromRGB(147,51,234)),ColorSequenceKeypoint.new(1,Color3.fromRGB(59,130,246))})ngr.Parent=nb local nt=Instance.new("TextLabel")nt.Size=UDim2.new(1,-20,1,0)nt.Position=UDim2.new(0,10,0,0)nt.BackgroundTransparency=1 nt.Text=msg nt.TextColor3=Color3.fromRGB(255,255,255)nt.TextSize=16 nt.Font=Enum.Font.GothamSemibold nt.Parent=nb local tween=T:Create(nb,TweenInfo.new(dur,Enum.EasingStyle.Quad,Enum.EasingDirection.InOut),{BackgroundTransparency=1})tween:Play()tween.Completed:Connect(function()n:Destroy()end)end
-
 notify("Script made by OudaiLUA ;)",3)
-
 fr.Size=UDim2.new(0,0,0,0)T:Create(fr,TweenInfo.new(0.5,Enum.EasingStyle.Back),{Size=UDim2.new(0,300,0,220)}):Play()
 print("oudai fly loaded")
