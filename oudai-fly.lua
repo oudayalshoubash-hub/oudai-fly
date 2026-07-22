@@ -34,7 +34,7 @@ a(tg,Color3.fromRGB(147,51,234),Color3.fromRGB(168,85,247))a(mb,Color3.fromRGB(9
 local bv,bg
 local function sf()f=true g()h.PlatformStand=true bv=Instance.new("BodyVelocity")bv.MaxForce=Vector3.new(600000,900000,600000)bv.Velocity=Vector3.new(0,0,0)bv.Parent=rp bg=Instance.new("BodyGyro")bg.MaxTorque=Vector3.new(600000,600000,600000)bg.CFrame=rp.CFrame bg.Parent=rp tg.Text="DISABLE FLY"tg.BackgroundColor3=Color3.fromRGB(220,38,38)sd.BackgroundColor3=Color3.fromRGB(255,100,100)end
 local function st()f=false if bv then bv:Destroy()end if bg then bg:Destroy()end if h then h.PlatformStand=false end tg.Text="ENABLE FLY"tg.BackgroundColor3=Color3.fromRGB(147,51,234)sd.BackgroundColor3=Color3.fromRGB(0,255,120)end
-R.Heartbeat:Connect(function()if not f or not rp or not bv then return end local m=h.MoveDirection local v=m.Z*-30 if U:IsKeyDown(Enum.KeyCode.Space)then v=v+60 end if U:IsKeyDown(Enum.KeyCode.LeftControl)then v=v-60 end bv.Velocity=(rp.CFrame.LookVector*Vector3.new(1,0,1)+Vector3.new(0,1,0)*m.Y).Unit*(math.abs(m.X)+math.abs(m.Z))*s+Vector3.new(0,v*0.6,0)bg.CFrame=rp.CFrame end)
+R.Heartbeat:Connect(function()if not f or not rp or not bv then return end local m=h.MoveDirection local v=m.Z*-30 if U:IsKeyDown(Enum.KeyCode.Space)then v=v+60 end if U:IsKeyDown(Enum.KeyCode.LeftControl)then v=v-60 end bv.Velocity=((rp.CFrame*CFrame.new(m.X,0,m.Z)).Position-rp.CFrame.Position).Unit*(math.abs(m.X)+math.abs(m.Z))*s+Vector3.new(0,v*0.6,0)bg.CFrame=rp.CFrame end)
 tg.Activated:Connect(function()if f then st()else sf()end end)
 mb.Activated:Connect(function()s=math.max(30,s-10)sv.Text=tostring(s)end)
 pb.Activated:Connect(function()s=math.min(500,s+10)sv.Text=tostring(s)end)
